@@ -59,6 +59,17 @@ After the executable is created you can try out the project with the following c
 
 
 
+Note: on the CLI, 
+
+-action=<string> option corresponds to the task we want (e.g. fetch latest X PRs etc);
+
+-user=<string> is the name of the github user; 
+
+-numPRs=<int> (limit of PRs we want);
+
+-repo=<str>  corresponds to the repository (it follows the pattern owner/repo_name)
+
+
 #### Run tests
 
 There are a few integrations tests, mainly to be run on the pipeline.
@@ -111,7 +122,20 @@ Run command (you can provide your github token to make auth requests)...
 
 
 
-#### You can also test my own docker image (found on DockerHub)
+#### You can also test my own docker image (on DockerHub)
+
+
+Pull my image:
+
+> docker pull chackoya/my-app:latest
+
+
+
+Example (fetch repos) on how to run the CLI: 
+
+> docker run -e GITHUB_TOKEN=<Your_GitHub_Token> chackoya/my-app:latest ./main -action=userInfoRepos -user=Chackoya
+
+Please modify this command as you need (-actions) and other parameters to call other functions.
 
 
 
@@ -121,15 +145,13 @@ Run command (you can provide your github token to make auth requests)...
 
 
 
+## Final comments
 
+Thanks for reading and testing out the project.
 
+In case of any doubt or if you find any problem with the app (bug , issue with running, testing the project). Please feel free to contact me: 
 
-
-
-
-
-
-
+gustavo.p.gama@gmail.com
 
 
 

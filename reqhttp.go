@@ -1,6 +1,16 @@
 /*
 - reqhttp.go
-Functions in this file take care of making HTTP GET requests and error handling. This isolates HTTP request logic from other application logic.
+Functions in this file take care of making HTTP GET requests and error handling.
+
+- AUTH requests if a token is provided. Can be provided in a .env file, please checkout .env.example template, or when using the docker image (deployed) by using the cmd:
+docker run -e GITHUB_TOKEN=private_token USERNAME/IMAGE_NAME:TAG
+
+
+
+- UNAUTH requests (limited) if no token is provided.
+
+
+
 
 */
 package main
