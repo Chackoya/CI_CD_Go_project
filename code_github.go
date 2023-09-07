@@ -130,6 +130,7 @@ Last endpoint
 
 - Fetch PULL REQUEST STATUS (green, red , not run)
 */
+
 // PullRequestWithStatus represents a GitHub pull request along with its CI/CD status.
 type PullRequestWithStatus struct {
 	Title  string `json:"title"`
