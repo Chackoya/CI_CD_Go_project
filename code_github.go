@@ -25,18 +25,19 @@ import (
 	"net/http"
 )
 
-// Structures for the JSON responses for PRs and repos;
+// PullRequest represents a GitHub pull request with essential fields.
 type PullRequest struct {
 	Title     string `json:"title"`
-	HtmlURL   string `json:"html_url"`
+	HTMLURL   string `json:"html_url"`
 	CreatedAt string `json:"created_at"`
 }
 
-// structure that holds the list PR ('items') => they are made of objects that have fields such as title; urrls; creationDate...
+// SearchResult represents the result returned from a GitHub search query for pull requests.
 type SearchResult struct {
 	Items []PullRequest `json:"items"`
 }
 
+// Repository represents a GitHub repository with its name and URL.
 type Repository struct {
 	Name string `json:"name"`
 	URL  string `json:"html_url"`
@@ -134,6 +135,7 @@ func checkPipeline(repo string) {
 	}
 }
 
+// PullRequestWithStatus represents a GitHub pull request along with its CI/CD status.
 type PullRequestWithStatus struct {
 	Title  string `json:"title"`
 	URL    string `json:"html_url"`
