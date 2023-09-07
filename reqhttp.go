@@ -5,22 +5,39 @@ Functions in this file take care of making HTTP GET requests and error handling.
 */
 package main
 
-/*
-// makeGETRequest performs a GET request to the given URL and returns the response body as a byte slice.
-func makeGETRequest(url string) []byte {
-	resp, err := http.Get(url)
+import (
+	"fmt"
+	"io/ioutil"
+	"net/http"
+)
+
+// Utility function to make Requests (Authorized ones if token is defined on .env file)
+func makeGETRequest(url, token string) ([]byte, error) {
+	client := &http.Client{}
+	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
-		fmt.Println("Error:", err)
-		os.Exit(1)
+		return nil, err
+	}
+
+	// If token is present, use it for authentication
+	if token != "" {
+		req.Header.Add("Authorization", "token "+token)
+	}
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
 	}
 	defer resp.Body.Close()
 
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		fmt.Println("Error:", err)
-		os.Exit(1)
+	if resp.StatusCode != 200 {
+		return nil, fmt.Errorf("received non-ok http status: %s", resp.Status)
 	}
 
-	return body
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	return body, nil
 }
-*/
