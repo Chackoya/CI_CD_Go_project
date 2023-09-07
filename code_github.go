@@ -128,6 +128,7 @@ func getUserRepos(username string) ([]Repository, error) {
 
 // checkPipeline checks whether a given GitHub repository has an associated GitHub Actions pipeline.
 func checkPipeline(repo string) {
+
 	url := fmt.Sprintf("https://api.github.com/repos/%s/actions/workflows", repo)
 	data, err := makeGETRequest(url)
 	if err != nil {
@@ -135,17 +136,26 @@ func checkPipeline(repo string) {
 		return
 	}
 
-	fmt.Println(string(data))
+	//fmt.Println(string(data))
 	var result map[string]interface{}
 	if err := json.Unmarshal(data, &result); err != nil {
 		log.Printf("Error unmarshalling pipeline JSON: %s\n", err)
 		return
 	}
+	// Result contains something like: {"total_count":0,"workflows":[]}
 
-	if len(result) == 0 {
-		fmt.Println("No pipeline")
+	// Approach: just check if total_count > 0 to see if a pipeline exists;
+
+	totalCount, ok := result["total_count"].(float64) // cast unmarshelled json val;
+	if !ok {
+		log.Println("Error reading total_count from the result")
+		return
+	}
+	//fmt.Printf("Total Count: %v\n", totalCount)
+	if totalCount == 0 {
+		fmt.Printf("No pipeline, total: %v\n", totalCount)
 	} else {
-		fmt.Println("Pipeline exists")
+		fmt.Printf("Pipeline exists, total: %v\n", totalCount)
 	}
 }
 
