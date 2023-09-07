@@ -57,7 +57,7 @@ func makeGETRequest(reqURL string) ([]byte, error) {
 		return nil, errors.New("invalid URL: requests are only allowed to api.github.com")
 	}
 
-	resp, err := http.Get(reqURL)
+	resp, err := http.Get(reqURL) // #nosec
 	if err != nil {
 		return nil, err
 	}
