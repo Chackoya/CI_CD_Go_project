@@ -19,10 +19,12 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
+	"net/url"
 )
 
 // PullRequest represents a GitHub pull request with essential fields.
@@ -43,8 +45,19 @@ type Repository struct {
 	URL  string `json:"html_url"`
 }
 
-func makeGETRequest(url string) ([]byte, error) {
-	resp, err := http.Get(url)
+func makeGETRequest(reqURL string) ([]byte, error) {
+	// Parse the URL to extract its components
+	parsedURL, err := url.Parse(reqURL)
+	if err != nil {
+		return nil, err
+	}
+
+	// Ensure the URL is pointing to api.github.com
+	if parsedURL.Host != "api.github.com" {
+		return nil, errors.New("invalid URL: requests are only allowed to api.github.com")
+	}
+
+	resp, err := http.Get(reqURL)
 	if err != nil {
 		return nil, err
 	}
