@@ -86,7 +86,7 @@ func getLatestPRsByUser(username string, numPrs int) {
 	fmt.Println(result.Items[0])
 	// Iterate over the PRs and print their details
 	for _, pr := range result.Items {
-		fmt.Printf("PR Title: %s, URL: %s, Created At: %s\n", pr.Title, pr.HtmlURL, pr.CreatedAt)
+		fmt.Printf("PR Title: %s, URL: %s, Created At: %s\n", pr.Title, pr.HTMLURL, pr.CreatedAt)
 	}
 }
 
