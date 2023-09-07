@@ -1,6 +1,9 @@
 // code_github.go
 
 /*
+This file focuses on the code that deals with the external API (Github).
+
+
 Requirements:
 -> fetch X latest PRs for a given github user ;
 OK

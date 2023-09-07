@@ -1,5 +1,5 @@
 // Gustavo Gama - SCALABIT TEST.
-// main.go
+// main.go : CLI CODE.
 // This file is the entry point and will handle command-line arguments and call the appropriate functions based on those arguments.
 // please check out the README.md file for information about the project.
 package main
