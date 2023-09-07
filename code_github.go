@@ -76,7 +76,7 @@ func makeGETRequest(reqURL string) ([]byte, error) {
 }
 
 // getLatestPRsByUser fetches the latest X PRs by a GitHub user across all repositories.
-func getLatestPRsByUser(username string, numPrs int) {
+func getLatestPRsByUser(username string, numPrs int) ([]PullRequest, error) {
 	// Create the API URL for fetching PRs
 	prURL := fmt.Sprintf("https://api.github.com/search/issues?q=author:%s+type:pr&sort=created&order=desc&per_page=%d", username, numPrs)
 
@@ -84,7 +84,7 @@ func getLatestPRsByUser(username string, numPrs int) {
 	prData, err := makeGETRequest(prURL)
 	if err != nil {
 		log.Printf("Error fetching PRs: %s\n", err)
-		return
+		return nil, fmt.Errorf("error fetching PRs: %s", err)
 	}
 
 	// Print the raw JSON data (optional, for debugging)
@@ -94,13 +94,14 @@ func getLatestPRsByUser(username string, numPrs int) {
 	var result SearchResult
 	if err := json.Unmarshal(prData, &result); err != nil {
 		log.Printf("Error unmarshalling PR JSON: %s\n", err)
-		return
+		return nil, fmt.Errorf("error unmarshalling PR JSON: %s", err)
 	}
-	fmt.Println(result.Items[0])
+	//fmt.Println(result.Items[0])
 	// Iterate over the PRs and print their details
-	for _, pr := range result.Items {
-		fmt.Printf("PR Title: %s, URL: %s, Created At: %s\n", pr.Title, pr.HTMLURL, pr.CreatedAt)
-	}
+	//for _, pr := range result.Items {
+	//	fmt.Printf("PR Title: %s, URL: %s, Created At: %s\n", pr.Title, pr.HTMLURL, pr.CreatedAt)
+	//}
+	return result.Items, nil
 }
 
 // getUserRepos fetches the repositories owned by the GitHub user.

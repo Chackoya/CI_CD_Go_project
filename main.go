@@ -19,12 +19,19 @@ func main() {
 	// Perform actions based on the flags
 	switch *action {
 	case "userLatestPRs": //  ./chall-scalabit -action=userLatestPRs -user=ucwong -numPrs=1
-		if *user == "" { //
+		if *user == "" {
 			fmt.Println("Error: GitHub username is required for userLatestPRs action. Usage example: ./chall-scalabit -action=userLatestPRs -user=<username> -numPrs=<number>")
 			return
 		}
-		getLatestPRsByUser(*user, *numPrs)
+		prs, err := getLatestPRsByUser(*user, *numPrs)
+		if err != nil {
+			fmt.Printf("Error fetching user's PRs: %s\n", err)
+			return
+		}
 
+		for _, pr := range prs {
+			fmt.Printf("PR Title: %s, URL: %s, Created At: %s\n", pr.Title, pr.HTMLURL, pr.CreatedAt)
+		}
 	case "userInfoRepos":
 		if *user == "" { // ./chall-scalabit -action=userInfoRepos -user=ucwong
 			fmt.Println("Error: GitHub username is required for userInfoRepos action.")
