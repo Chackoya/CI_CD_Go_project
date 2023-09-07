@@ -10,6 +10,10 @@ import (
 
 /*
 Implementing some basic Integrations tests (on external API =>  github).
+
+
+
+Those tests are automatically run on the pipeline. in theory they are not blocking (in case of problems with the external api...)
 */
 
 func TestGetUserRepos(t *testing.T) {
