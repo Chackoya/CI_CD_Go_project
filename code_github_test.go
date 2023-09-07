@@ -3,11 +3,7 @@
 package main
 
 import (
-	"log"
-	"os"
 	"testing"
-
-	"github.com/joho/godotenv"
 )
 
 //ref :https://pkg.go.dev/testing
@@ -17,13 +13,9 @@ Implementing some basic Integrations tests (on external API =>  github).
 */
 
 func TestGetUserRepos(t *testing.T) {
-	err := godotenv.Load() // This will load the .env file in the same directory as your main function
-	if err != nil {
-		log.Fatalf("Error loading .env file: %v", err)
-	}
 
-	//
-	token := os.Getenv("GITHUB_TOKEN")
+	// Empty token to run on Github Actions... not the best approach but at least the tests will run... with unauth reqs..
+	token := ""
 
 	// Integration Test: testing the external API call to get repos.
 	username := "Chackoya" // using a real username, example of my acc: Chackoya
@@ -46,12 +38,9 @@ func TestGetUserRepos(t *testing.T) {
 	}
 }
 func TestCheckPipeline(t *testing.T) {
-	err := godotenv.Load() // This will load the .env file in the same directory as your main function
-	if err != nil {
-		t.Fatalf("Error loading .env file: %v", err)
-	}
 
-	token := os.Getenv("GITHUB_TOKEN")
+	// Same... using unauth reqs to the github API , to run during github actions steps.
+	token := ""
 
 	// In this example, usage of  "actions/starter-workflows" , can be replaced with another...
 	repo := "actions/starter-workflows"
