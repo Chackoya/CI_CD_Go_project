@@ -18,7 +18,7 @@ vendor/
 .idea/
 
 # Go modules files
-go.sum
+#go.sum
 
 # Your executable
 chall-scalabit
