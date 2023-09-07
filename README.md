@@ -67,7 +67,64 @@ There are a few integrations tests, mainly to be run on the pipeline.
 
 
 
-##
+## Pipeline information
+
+The pipeline provides CI/CD for the project. It runs checks, builds the project, runs tests and deploys (with docker). The triggers are based on push/pull req.
+
+Please check out the .yml file for more information. 
+
+#### Run the pipeline
+
+You're going to setup the following secrets (Secrets section on Github):
+
+- DOCKER_HUB_USERNAME: Your Docker Hub username.
+
+- DOCKER_HUB_ACCESS_TOKEN: Your Docker Hub access token.
+
+
+Once this is done, just make a push and the it should trigger the process. 
+
+Example to trigger (config the git to be able to push, git init or other...):
+
+> git add .
+
+> git commit -m "Triggering CI/CD"
+
+> git push
+
+
+#### Check the results
+
+Go into the Actions tab and check the results of the pipeline process.
+
+If all went well, you can run the docker image with the following commands:
+
+Open a terminal and pull it:
+
+> docker pull <DOCKER_HUB_USERNAME>/my-app:latest
+
+Run command (you can provide your github token to make auth requests)...
+
+> docker run -e GITHUB_TOKEN=<Your_GitHub_Token> <DOCKER_HUB_USERNAME>/my-app:latest
+
+
+
+
+
+#### You can also test my own docker image (found on DockerHub)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

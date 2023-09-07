@@ -22,13 +22,15 @@ func main() {
 	// Basically it's preferable to define the token on the .env file so avoid limitations from the Github API. The following code will try to load it from there.
 	// If the constant "GITHUB_TOKEN" is empty (i.e: GITHUB_TOKEN=), then we will use the free API (with limitations 60 i guess).
 	// If we insert the token we will proceed with it for more requests (more availability from the external api).
-	err := godotenv.Load() // This will load the .env file in the same directory as your main function
+	err := godotenv.Load() // Try to load the .env file if it exists
 	if err != nil {
-		log.Fatalf("Error loading .env file: %v", err)
+		log.Println("Warning: Could not load .env file. Relying on environment variables.")
 	}
 
-	//
 	token := os.Getenv("GITHUB_TOKEN")
+	if token == "" {
+		log.Println("Warning: GITHUB_TOKEN is not set. Making unauthenticated requests.")
+	}
 
 	/*
 		if token == "" { // this fct is too heavy on req, better not use it without auth.
