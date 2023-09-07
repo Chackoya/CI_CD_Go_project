@@ -35,6 +35,11 @@ jobs:
     - name: Install dependencies
       run: go mod download
 
+
+    - name: Build
+      run: go build -v ./...
+
+    
     - name: Run go vet
       run: go vet ./...
 
